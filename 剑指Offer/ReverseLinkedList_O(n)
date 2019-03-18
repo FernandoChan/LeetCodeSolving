@@ -1,0 +1,33 @@
+/*
+struct ListNode {
+	int val;
+	struct ListNode *next;
+	ListNode(int x) :
+			val(x), next(NULL) {
+	}
+};*/
+class Solution {
+public:
+    ListNode* ReverseList(ListNode* pHead) {
+  
+        ListNode* pReHead = nullptr;// result reverse list
+        ListNode* pNode=pHead;
+        ListNode* pPrev = nullptr;
+        
+        while (pNode != nullptr){
+            ListNode* pNext = pNode -> next; // store the next one item
+            
+            
+            if(pNext == nullptr ){
+                pReHead = pNode; // if reach the end
+            }
+            pNode -> next = pPrev; //reverse the next pointer 
+            
+            //to Next step
+            pPrev = pNode;
+            pNode = pNext;
+        }
+        
+        return pReHead;
+    }
+};
