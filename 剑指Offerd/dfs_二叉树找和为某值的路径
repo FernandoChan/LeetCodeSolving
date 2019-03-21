@@ -1,0 +1,42 @@
+/*
+struct TreeNode {
+	int val;
+	struct TreeNode *left;
+	struct TreeNode *right;
+	TreeNode(int x) :
+			val(x), left(NULL), right(NULL) {
+	}
+};*/
+class Solution {
+private:
+    // 因为使用了引用, 所以就不需要考虑返回值了
+    void FindPathCore(TreeNode* root, int expectNumber,
+                                      vector<int>&path, vector <vector<int> >&paths )
+    {
+        path.push_back(root->val);
+        // base condition 
+
+        // 题目没说节点非负 , 所以所有的分支都要走, 可是那为什么提示数组长度? 应该都一样啊.
+        // if (expectNumber < root->val )
+        // if (expectNumber == root->val){
+        // 所以改成了判断最后一层是否相同
+        if (!root->left && !root->right && expectNumber==root->val){
+            paths.push_back(path);
+        }
+        if (root->left){
+            FindPathCore(root->left, expectNumber-root->val,path, paths);
+        }
+        if (root->right){
+            FindPathCore(root->right, expectNumber-root->val,path, paths);
+        }
+        path.pop_back();
+    }
+public:
+    vector<vector<int> > FindPath(TreeNode* root,int expectNumber) {
+        vector<int> path ;
+        vector<vector<int>> paths;
+        if (root)
+            FindPathCore(root, expectNumber, path, paths);
+        return paths;
+    }
+};
